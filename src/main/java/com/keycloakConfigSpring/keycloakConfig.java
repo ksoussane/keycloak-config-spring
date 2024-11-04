@@ -1,4 +1,4 @@
-package com.incidentManagement;
+package com.keycloakConfigSpring;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

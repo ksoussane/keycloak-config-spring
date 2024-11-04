@@ -1,4 +1,4 @@
-package com.incidentManagement;
+package com.keycloakConfigSpring;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
