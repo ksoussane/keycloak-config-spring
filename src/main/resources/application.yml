@@ -1,19 +1,19 @@
 server:
-  port: 9095  # Port for the production environment
+  port: 9095
 
 spring:
   datasource:
-    url: jdbc:postgresql://postgres:5432/testdb  # Use db-prod service name and correct port
+    url: jdbc:postgresql://postgres:5432/testdb
     username: testdb
     password: testdb
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: validate  # Use 'validate' in production to avoid accidental schema changes
-    show-sql: false  # Disable in production for better performance
+      ddl-auto: validate
+    show-sql: false
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect  # Use PostgreSQL dialect
+        dialect: org.hibernate.dialect.PostgreSQLDialect
   security:
     oauth2:
       resourceserver:
