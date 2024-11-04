@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  # PostgreSQL service
+  postgres:
+    image: "postgres:16"
+    environment:
+      POSTGRES_DB: testdb
+      POSTGRES_USER: testdb
+      POSTGRES_PASSWORD: testdb
+    ports:
+      - "5436:5432"
+    volumes:
+      - test-db:/var/lib/postgresql/data
+    networks:
+      - test-network
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
+    ports:
+      - "5051:80"
+    networks:
+      - test-network
+    volumes:
+      - test-pgadmin-data:/var/lib/pgadmin
+
+  # Keycloak service
+  keycloak:
+    image: quay.io/keycloak/keycloak:22.0.4
+    command: start-dev
+    ports:
+      - "9081:8080"
+    restart: unless-stopped
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin@1234
+      KC_DB: postgres
+      KC_DB_USERNAME: testdb
+      KC_DB_PASSWORD: testdb
+      KC_DB_URL: jdbc:postgresql://postgres:5432/testdb
+    depends_on:
+      - postgres
+    networks:
+      - test-network
+
+networks:
+  test-network:
+    driver: bridge
+
+volumes:
+  test-pgadmin-data:
+  test-db:
+    driver: local

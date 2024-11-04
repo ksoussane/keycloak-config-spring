@@ -1,0 +1,28 @@
+server:
+  port: 9095  # Port for the production environment
+
+spring:
+  datasource:
+    url: jdbc:postgresql://postgres:5432/testdb  # Use db-prod service name and correct port
+    username: testdb
+    password: testdb
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate  # Use 'validate' in production to avoid accidental schema changes
+    show-sql: false  # Disable in production for better performance
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect  # Use PostgreSQL dialect
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:9081/realms/myrealm
+          jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs
+
+jwt:
+  auth:
+    converter:
+      resource-id: keycloak-config-spring
+      principle-attribute: preferred_username
