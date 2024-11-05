@@ -12,12 +12,17 @@ public class DemoController {
     @GetMapping
     @PreAuthorize("hasRole('client_user')")
     public String hello() {
-        return "Hello from Spring boot & Keycloak";
+        return "Hello from Spring boot & Keycloak - USER";
     }
 
     @GetMapping("/hello-2")
     @PreAuthorize("hasRole('client_admin')")
     public String hello2() {
         return "Hello from Spring boot & Keycloak - ADMIN";
+    }
+
+    @GetMapping("/hello-3")
+    public String hello3() {
+        return "Hello from Spring boot & Keycloak";
     }
 }
